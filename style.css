@@ -27,6 +27,7 @@ output {
 #userContainer {
     width: 95%;
     display: flex;
+    gap: 3rem;
 
     &>* {
         width: 50%;
@@ -40,15 +41,9 @@ output {
 }
 
 #userOutput {
-    display: flex;
-    justify-content: center;
     position: sticky;
     top: 10rem;
     align-self: start;
-
-    &>div {
-        width: 80%;
-    }
 
     h2 {
         margin-top: 0;
@@ -107,10 +102,6 @@ label {
 
     #userOutput {
         font-size: 0.7rem;
-
-        &>div {
-            width: 100%;
-        }
 
         h2 {
             margin-bottom: 1.5rem;
