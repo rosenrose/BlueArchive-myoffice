@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>블루 아카이브</title>
+    <link rel="stylesheet" href="./style.css">
+</head>
+
+<body>
+    <div id="inform">
+        <h1>
+            프리시즌 기간(<output id="seasonStartDate"></output> ~ <output id="seasonEndDate"></output>) 동안
+            <output id="pickCnt"></output>번의 뽑기에서
+        </h1>
+        <h1>
+            <output id="cardCnt"></output>장의 카드를 모두 모을 확률은
+            <output id="probability"></output>입니다.
+        </h1>
+    </div>
+    <div id="userContainer">
+        <div id="cardContainer"></div>
+        <div id="userOutput">
+            <div>
+                <h2><input type="date" id="userStartDate"> 부터 <input type="date" id="userEndDate"> 까지</h2>
+                <h2><output id="userPickCnt"></output>번의 뽑기에서</h2>
+                <h2><output id="userCardCnt"></output>장의 카드를 모두 모을 확률은</h2>
+                <h2><output id="userProbability"></output>입니다.</h2>
+            </div>
+        </div>
+    </div>
+    <template id="cardTemplate">
+        <label>
+            <input type="checkbox">
+            <img>
+        </label>
+    </template>
+    <script src="./script.js"></script>
+</body>
+
+</html>

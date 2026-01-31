@@ -1,0 +1,78 @@
+:root {
+    --blue: #4da8f7;
+}
+
+body {
+    background-image: url("./sub-pattern-bg.jpg");
+    background-size: 100% 100%;
+    padding-top: 3rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 5rem;
+}
+
+output {
+    font-weight: bold;
+    color: var(--blue);
+}
+
+#inform {
+    width: 70%;
+    text-align: center;
+}
+
+#userContainer {
+    width: 95%;
+    display: flex;
+
+    &>* {
+        width: 50%;
+    }
+}
+
+#cardContainer {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 0.5rem;
+}
+
+#userOutput {
+    display: flex;
+    justify-content: center;
+
+    &>div {
+        width: 80%;
+    }
+
+    h2 {
+        margin-top: 0;
+        margin-bottom: 3rem;
+    }
+}
+
+label {
+    input {
+        display: none;
+
+        &:checked+img {
+            box-shadow: 0 0 1rem 0.3rem var(--blue);
+        }
+
+        &:not(:checked)+img {
+            filter: grayscale(100%);
+        }
+    }
+
+    img {
+        width: 100%;
+        cursor: pointer;
+        transition-duration: 0.2s;
+        will-change: transform;
+
+        &:hover {
+            transform: scale(0.97);
+        }
+    }
+}
