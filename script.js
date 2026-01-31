@@ -1,3 +1,43 @@
+const cardCnt = 29;
+const seasonStartDate = new Date("2025-12-16");
+const seasonEndDate = new Date("2026-03-10");
+const precision = 10;
+
+document.querySelector("#seasonStartDate").textContent = toDateString(seasonStartDate);
+document.querySelector("#seasonEndDate").textContent = toDateString(seasonEndDate);
+const pickCnt = getPickCnt(seasonStartDate, seasonEndDate);
+
+document.querySelector("#cardCnt").textContent = cardCnt;
+document.querySelector("#pickCnt").textContent = pickCnt;
+document.querySelector("#probability").textContent = `${getPercent(calcProbability(cardCnt, pickCnt))}%`;
+
+const today = new Date();
+const userStartDateInput = document.querySelector("#userStartDate");
+userStartDateInput.value = today.toISOString().slice(0, 10);
+
+const userEndDateInput = document.querySelector("#userEndDate");
+userEndDateInput.value = seasonEndDate.toISOString().slice(0, 10);
+
+for (const userDateInput of [userStartDateInput, userEndDateInput]) {
+    userDateInput.min = seasonStartDate.toISOString().slice(0, 10);
+    userDateInput.addEventListener("change", updateUserInput);
+}
+
+const cardContainer = document.querySelector("#cardContainer");
+const cardTemplate = document.querySelector("#cardTemplate");
+
+for (let i = 0; i < cardCnt; i++) {
+    const template = cardTemplate.content.cloneNode(true);
+    const img = template.querySelector("img");
+
+    img.src = `./pre_season/${(i + 1).toString().padStart(3, "0")}.png`;
+    cardContainer.append(template);
+}
+
+cardContainer.addEventListener("change", updateUserInput);
+updateUserInput();
+
+
 function sum(nums, init = 0n) {
     return nums.reduce((acc, num) => acc + num, init);
 }
@@ -22,9 +62,13 @@ function calcProbability(cardCnt, pickCnt, targetCnt = cardCnt) {
     const complementary = sum([...Array(targetCnt).keys()].map(i => (
         combiCnt(targetCnt, i + 1) * (BigInt(cardCnt - (i + 1)) ** BigInt(pickCnt)) * (i & 1 ? -1n : 1n))
     ));
-    const precision = 10 ** 10;
+    const pow = 10 ** precision;
 
-    return Number((total - complementary) * BigInt(precision) / total) / precision;
+    return Number((total - complementary) * BigInt(pow) / total) / pow;
+}
+
+function getPercent(probability) {
+    return (probability * 100).toString().slice(0, precision + 1);
 }
 
 function toDateString(date) {
@@ -61,43 +105,5 @@ function updateUserInput() {
 
     const userCardCnt = cardContainer.querySelectorAll("input:checked").length;
     document.querySelector("#userCardCnt").textContent = userCardCnt;
-    document.querySelector("#userProbability").textContent = `${calcProbability(cardCnt, userPickCnt, userCardCnt) * 100}%`;
+    document.querySelector("#userProbability").textContent = `${getPercent(calcProbability(cardCnt, userPickCnt, userCardCnt))}%`;
 }
-
-const cardCnt = 29;
-const seasonStartDate = new Date("2025-12-16");
-const seasonEndDate = new Date("2026-03-10");
-
-document.querySelector("#seasonStartDate").textContent = toDateString(seasonStartDate);
-document.querySelector("#seasonEndDate").textContent = toDateString(seasonEndDate);
-const pickCnt = getPickCnt(seasonStartDate, seasonEndDate);
-
-document.querySelector("#cardCnt").textContent = cardCnt;
-document.querySelector("#pickCnt").textContent = pickCnt;
-document.querySelector("#probability").textContent = `${calcProbability(cardCnt, pickCnt) * 100}%`;
-
-const today = new Date();
-const userStartDateInput = document.querySelector("#userStartDate");
-userStartDateInput.value = today.toISOString().slice(0, 10);
-
-const userEndDateInput = document.querySelector("#userEndDate");
-userEndDateInput.value = seasonEndDate.toISOString().slice(0, 10);
-
-for (const userDateInput of [userStartDateInput, userEndDateInput]) {
-    userDateInput.min = seasonStartDate.toISOString().slice(0, 10);
-    userDateInput.addEventListener("change", updateUserInput);
-}
-
-const cardContainer = document.querySelector("#cardContainer");
-const cardTemplate = document.querySelector("#cardTemplate");
-
-for (let i = 0; i < cardCnt; i++) {
-    const template = cardTemplate.content.cloneNode(true);
-    const img = template.querySelector("img");
-
-    img.src = `./pre_season/${(i + 1).toString().padStart(3, "0")}.png`;
-    cardContainer.append(template);
-}
-
-cardContainer.addEventListener("change", updateUserInput);
-updateUserInput();
