@@ -85,7 +85,6 @@ userEndDateInput.value = seasonEndDate.toISOString().slice(0, 10);
 
 for (const userDateInput of [userStartDateInput, userEndDateInput]) {
     userDateInput.min = seasonStartDate.toISOString().slice(0, 10);
-    userDateInput.max = seasonEndDate.toISOString().slice(0, 10);
     userDateInput.addEventListener("change", updateUserInput);
 }
 

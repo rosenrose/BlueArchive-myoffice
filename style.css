@@ -1,5 +1,6 @@
 :root {
-    --blue: #4da8f7;
+    /* --light-blue: #4da8f7; */
+    --blue: #346aba;
 }
 
 body {
@@ -41,6 +42,9 @@ output {
 #userOutput {
     display: flex;
     justify-content: center;
+    position: sticky;
+    top: 10rem;
+    align-self: start;
 
     &>div {
         width: 80%;
@@ -73,6 +77,51 @@ label {
 
         &:hover {
             transform: scale(0.97);
+        }
+    }
+}
+
+@media (max-width: 768px) {
+    body {
+        gap: 2rem;
+    }
+
+    input[type="date"] {
+        width: 6.5rem;
+    }
+
+    #inform {
+        width: 100%;
+        font-size: 0.8rem;
+    }
+
+    #userContainer {
+        width: 100%;
+        gap: 0.5rem;
+    }
+
+    #cardContainer {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 0.2rem;
+    }
+
+    #userOutput {
+        font-size: 0.7rem;
+
+        &>div {
+            width: 100%;
+        }
+
+        h2 {
+            margin-bottom: 1.5rem;
+        }
+    }
+
+    label {
+        input {
+            &:checked+img {
+                box-shadow: 0 0 0.5rem 0.1rem var(--blue);
+            }
         }
     }
 }
