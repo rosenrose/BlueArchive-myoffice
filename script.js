@@ -68,7 +68,7 @@ function calcProbability(cardCnt, pickCnt, targetCnt = cardCnt) {
 }
 
 function getPercent(probability) {
-    return (probability * 100).toString().slice(0, precision + 1);
+    return (probability * 100).toFixed(precision - 2);
 }
 
 function toDateString(date) {
